@@ -1,24 +1,16 @@
-# You shouldn't need to set a working directory as it will search in the source file directory
-# 1. Load the data from the 'raw_data' folder
-getwd()
-gc()
-rm(list = ls())
-.rs.restartR()
+# path 
+setwd("./Network_Simulations")
 
-#setwd("m:/Users/uqtprobo/Documents/Network_Simulations/Network_Simulations")
-setwd("C:/Users/uqtprobo/Dropbox/PhD/Chapter_1/R/Network_Simulations/Network_Simulations")
-
+# 1. Load bacterial and social data
 data.e <- read.csv ("./raw_data/V1_S3.csv", header = T,
                     stringsAsFactors = FALSE)
 data.s <- read.csv("./raw_data/Survey_2014_2016_clipped.csv", header = T,
                    stringsAsFactors = FALSE)
-# Run simulation using the spatial data 
+# Load spatial data 
 data.d.2014 <- as.data.frame(read.csv("./raw_data/distances_centroids_2014.csv"))
 data.d.2014$X = NULL
-
 data.d.2015 <- read.csv("./raw_data/distances_centroids_2015.csv")
 data.d.2015$X=NULL
-
 
 # 2. Source all functions needed to perform analyses. 
 # In this case, we have stored all of these functions in the folder 'R', 
@@ -32,23 +24,13 @@ sourceDir <- function(path, ...) {
 sourceDir('./R')
 
 # 3. Run simulations by 
-#(a) allowing cutoff and social index values to vary,
+# (a) allowing cutoff and social index values to vary,
 # (b) constructing matrices and calculating network metrics, 
 # and (c) running regression models. 
 # This function produces summary statistics of all the necessary regressions, 
-# but will take a while to run (calculation of network metrics is a bit slow). 
-# !! NOTE, the following packages should be installed !!: 
+# but will take a while to run.
+# NOTE, the following packages should be installed:
 # ecodist, pbapply, lme4, asnipe, sna, dplyr, purrr
-#
-# test <- run_network_sims(data.ecoli = data.e,
-#                 data.social = data.s,
-#                 n.simulations = 1,
-#                 n.cores = 4,
-#                 weighted.host = TRUE,
-#                 spatial = TRUE,
-#                 spatial_2014 = data.d.2014,
-#                 spatial_2015 = data.d.2015)
-
 
 test <- run_network_sims_spatial(data.ecoli = data.e,
                          data.social = data.s,
@@ -59,15 +41,6 @@ test <- run_network_sims_spatial(data.ecoli = data.e,
                          spatial_2014 = data.d.2014,
                          spatial_2015 = data.d.2015)
 
-
-#save(test, file="./test_results/coli_space_1000.rda")
-
-load("./test_results/test.unweigthed.v3.rda")
-load("./test_results/test.weigthed.v3.rda")
-test <-test.unweigthed.v3
-test.w <-test.weigthed.v3
-
-
 ### What host cutoffs were tested?
 test$host.cutoff.summary
 
@@ -76,8 +49,6 @@ test$host.index.summary
 
 ### What ecoli cutoffs were tested?
 test$ecoli.cutoff.summary
-
-
 
 ###___________________________Analysis 
 
@@ -111,7 +82,6 @@ test$MRM.host.summary
 # Individual-based comparison
 test$degree.coef.summary
 
-
 ###__________________________ Suplementary Material 
 
 # Table S1. 
@@ -140,7 +110,6 @@ test$MRM.2015.summary
 test.w$MRM.2014.summary
 test.w$MRM.2015.summary
 
-
 #Table S2. 
 #Estimates of fixed effects from the linear mixed model to predict
 #social network a) betweenness and b) eigenvector centrality. Individual ID was 
@@ -154,16 +123,12 @@ test$betweeness.coef.summary
 #b)
 test$eigencent.coef.summary
 
-
 #Table S3. 
 #Tests of community relationships between host social networks and 
 #commensal bacterial networks in 2014 and 2015. Coefficients represent relationships 
 #between commensal bacterial network structure and host social network structure, 
 #calculated using a multiple regression quadratic assignments procedure (MRQAP) 
 #with 1,000 permutations.
-
-
-
 
 #Table S4. 
 #Summary of network-level metrics for a commensal bacterial network 
@@ -269,10 +234,8 @@ deg.social.2015 <- igraph::degree(s.2015)
 summary(deg.social.2015)
 sd(deg.social.2015)
 
-
 # for the Figures, we used the code "Figure" which create the matrix in the format 
 # needed to work with Gephi.
-
 
 #Figure S5. 
 #Degree coefficient for commensal bacterial
