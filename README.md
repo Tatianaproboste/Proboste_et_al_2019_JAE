@@ -8,5 +8,5 @@ This repository includes all the code and database used to obtain the results an
 # Repository structure
 - All raw data are save as .csv files in the ./raw_data folder
 - The R code Simulation_testing.R is the main code that runs all the function stored in the ./R folder. 
-- Folder Fig 1 contains the database and the code to create figure 1, Proboste et al. 2019
+- Folder Fig 2 contains the database and the code to create figure 2, Proboste et al. 2019
 - ./Network figures folder contain the R code to create .csv files that were used to build the social and bacteria networks in Gephi
