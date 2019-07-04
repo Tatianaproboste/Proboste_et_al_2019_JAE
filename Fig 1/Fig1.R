@@ -2,7 +2,7 @@
 library(dplyr)
 library(ggplot2)
 
-load("./test_results/test.unweigthed.v3.rda")
+load("./test.unweigthed.v3.rda")
 test <-test.unweigthed.v3
   
   plot.data <- data.frame(Ecoli.cutoff = as.factor(test$ecoli.cutoff.raw),
