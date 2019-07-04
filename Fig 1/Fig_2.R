@@ -33,7 +33,7 @@ nb.index <- nlevels(plot.data$index)
 #camparison betweeen social index   
 cols <- c('#A3245B', '#597D79','#E7A582', '#ACC66B')
 
-fig1 <- ggplot(data = plot.data, aes(x = Host.cutoff, y = Coef.Estimate, colour =type.method.interaction, shape=type.method.interaction)) + 
+fig2 <- ggplot(data = plot.data, aes(x = Host.cutoff, y = Coef.Estimate, colour =type.method.interaction, shape=type.method.interaction)) + 
   geom_point (size=1.5)+
   theme_classic() +
   scale_shape_manual("Similarity cut-off & Index", values = c(17,16,17,16)) +
@@ -41,12 +41,5 @@ fig1 <- ggplot(data = plot.data, aes(x = Host.cutoff, y = Coef.Estimate, colour 
   labs(x= "Host association thresholds", y="Regression coefficient") +
   geom_smooth (method = "loess", size = 0.75, se=F, span=0.6)
 
-plot(fig1)
+plot(fig2)
 
-fig1 <- ggplot(data = plot.data, aes(x = Host.cutoff, y = Coef.Estimate, colour =type.method.interaction, shape=type.method.interaction)) + 
-  theme_classic() +
-  scale_shape_manual("Similarity cut-off & Index", values = c(17,16,17,16)) +
-  scale_colour_manual("Similarity cut-off & Index", values = cols) +
-  labs(x= "Host association thresholds", y="Regression coefficient") +
-  geom_smooth(method = lm, formula = y ~ splines::bs(x, 5), se = FALSE)
-plot(fig1)
